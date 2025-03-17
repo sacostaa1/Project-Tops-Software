@@ -17,20 +17,17 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    // Actividad 1 - Vista inicial
     @GetMapping("/")
     public String index() {
-        return "home/index";  // Corregido para apuntar a /templates/home/index.html
+        return "home/index";
     }
 
-    // Actividad 2 - Formulario de creación
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("review", new Review());
-        return "reviews/create";  // Apunta a /templates/reviews/create.html
+        return "reviews/create";
     }
 
-    // Actividad 3 - Inserción de objeto
     @PostMapping("/create")
     public String createReview(@Valid @ModelAttribute("review") Review review, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -39,31 +36,28 @@ public class ReviewController {
         
         reviewService.saveReview(review);
         model.addAttribute("message", "Elemento creado satisfactoriamente");
-        return "reviews/success";  // Apunta a /templates/reviews/success.html
+        return "reviews/success";
     }
 
-    // Actividad 4 - Listar objetos
     @GetMapping("/list")
     public String listReviews(Model model) {
         model.addAttribute("reviews", reviewService.getAllReviews());
-        return "reviews/list";  // Apunta a /templates/reviews/list.html
+        return "reviews/list";
     }
 
-    // Actividad 5 - Ver un objeto
     @GetMapping("/{id}")
     public String showReview(@PathVariable Long id, Model model) {
         try {
             Review review = reviewService.getReviewById(id)
                 .orElseThrow(() -> new RuntimeException("Review no encontrada"));
             model.addAttribute("review", review);
-            return "reviews/show";  // Apunta a /templates/reviews/show.html
+            return "reviews/show";
         } catch (RuntimeException e) {
             model.addAttribute("error", "Review no encontrada");
             return "redirect:/reviews/list";
         }
     }
 
-    // Actividad 6 - Borrar objeto
     @PostMapping("/{id}/delete")
     public String deleteReview(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
@@ -75,7 +69,6 @@ public class ReviewController {
         return "redirect:/reviews/list";
     }
 
-    // Manejador de excepciones para toda la clase
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e, Model model) {
         model.addAttribute("error", "Ha ocurrido un error: " + e.getMessage());
