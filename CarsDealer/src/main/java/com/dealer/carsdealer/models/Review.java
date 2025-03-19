@@ -1,10 +1,18 @@
 package com.dealer.carsdealer.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Max;
+
 
 @Entity
 @Table(name = "reviews")
@@ -14,7 +22,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "El titulo no puede estar vacío")
+    @NotEmpty(message = "El título no puede estar vacío")
     private String title;
 
     @NotNull(message = "La calificación es obligatoria")
@@ -26,21 +34,23 @@ public class Review {
     @Column(columnDefinition = "TEXT")
     private String comment;
 
-    @NotEmpty(message = "El modelo del auto no puede estar vacío")
-    private String carModel;
+    @ManyToOne
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private Car car;
 
     // Constructor
-    public Review(){
+    public Review() {
     }
 
     // Constructor con parámetros
-    public Review(String title, Integer rating, String comment, String carModel){
+    public Review(String title, Integer rating, String comment, Car car) {
         this.title = title;
         this.rating = rating;
         this.comment = comment;
-        this.carModel = carModel;
+        this.car = car;
     }
 
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -73,11 +83,11 @@ public class Review {
         this.comment = comment;
     }
 
-    public String getCarModel() {
-        return carModel;
+    public Car getCar() {
+        return car;
     }
 
-    public void setCarModel(String carModel) {
-        this.carModel = carModel;
+    public void setCar(Car car) {
+        this.car = car;
     }
 }

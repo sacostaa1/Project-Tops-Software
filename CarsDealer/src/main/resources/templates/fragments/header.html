@@ -1,0 +1,27 @@
+<th:block th:fragment="header">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-4">
+    <div class="container">
+      <a class="navbar-brand" th:href="@{/}"><img src="/images/logo.png" alt="Cars Dealer Logo" width="100" height="50"></a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link active" th:href="@{/}">Inicio</a>
+          <a class="nav-link active" th:href="@{/cars/catalogo}">Catalogo</a>
+          <a class="nav-link active" th:href="@{/login}">Inicio de Sesión</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</th:block>

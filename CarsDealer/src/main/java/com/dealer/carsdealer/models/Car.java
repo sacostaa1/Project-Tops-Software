@@ -1,9 +1,19 @@
 package com.dealer.carsdealer.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Min;
 import java.util.List;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cars")
@@ -40,6 +50,11 @@ public class Car {
 
     private String imageUrl;
 
+    @OneToMany(mappedBy = "car")
+    private List<Review> reviews;
+
+    
+
     public Car() {
     }
 
@@ -48,6 +63,15 @@ public class Car {
         return id;
     }
 
+    
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+    
     public void setId(int id) {
         this.id = id;
     }

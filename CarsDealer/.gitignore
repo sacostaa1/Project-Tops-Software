@@ -31,8 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Spring Boot Config ###
-src/main/resources/application.properties
-src/main/resources/application.yml
-

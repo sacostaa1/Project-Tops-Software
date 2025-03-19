@@ -1,0 +1,365 @@
+/* Estilos para la barra de navegación */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.navbar {
+    background-color: #1c1c1c !important;
+    font-family: 'Bebas Neue', sans-serif ; 
+}
+
+
+
+.navbar a.nav-link {
+    font-family: 'Bebas Neue', sans-serif !important; 
+    font-size: 1.1rem;
+    color: white !important; 
+    transition: background-color 0.3s ease, color 0.3s ease !important; 
+    border-radius: 8px;
+}
+
+.navbar a.nav-link:hover {
+    background-color: #800000; 
+    border-radius: 8px;
+    color: white; 
+}
+
+
+.footerpage {
+    background-color: #1c1c1c !important;  
+    color: white;  
+    text-align: center;  
+    padding: 20px;  
+    width: 100%;  
+}
+
+.footerpage p {
+    margin: 0;
+    font-size: 14px;
+}
+
+#filtersForm {
+    background-color: #2a2a2a; 
+    padding: 20px;  
+    margin-bottom: 40px;
+    width: 100%;  
+    max-width: 100%;
+}
+
+#filtersForm .row {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px;  
+}
+
+#filtersForm .col {
+    flex: 1 1 calc(20% - 15px); 
+    min-width: 180px; 
+}
+
+/* Títulos y encabezados */
+#filtersForm h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* Estilos para cada filtro */
+#filtersForm .form-select {
+    background-color: #333;
+    border: 2px solid #555;
+    color: white;
+    font-size: 1.1rem;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+#filtersForm .form-select:focus {
+    border-color: #D9981E; 
+    background-color: #444; 
+    outline: none !important; 
+}
+
+/* Estilos para los rangos de precio */
+#filtersForm .form-range {
+    background-color: #333;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Fondo de botones */
+#filtersForm .btn {
+    background-color: #800000;  
+    font-family: 'Bebas Neue', sans-serif;
+    color: white;
+    font-size: 1rem; 
+    padding: 12px 25px;  
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 200px !important; 
+    margin: 0 auto; 
+    display: block; 
+}
+
+/* Efecto hover del botón */
+#filtersForm .btn:hover {
+    background-color: #D9981E; 
+    transform: scale(1.05);
+}
+
+
+#filtersForm .col-md-3 {
+    padding: 10px;
+}
+
+.form-label{
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+
+
+.text-custom{
+    color: #7a7a7a!important;
+}
+
+.title{
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+
+/* las cards */
+.card.custom-card {
+    border-radius: 10px; 
+    overflow: hidden; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card.custom-card:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+}
+
+.card-img-top {
+    border-radius: 10px 10px 0 0; 
+    object-fit: cover; 
+    height: 200px; 
+}
+
+.card-body {
+    padding: 20px;
+    color: white; 
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #000000; 
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #a5a4a4; 
+}
+
+.btn-primary {
+    background-color: #800000; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #D9981E; 
+    color: white;
+}
+
+
+/* Estilo de los inputs */
+.custom-input {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+/* Estilo de los inputs cuando se enfocan */
+.custom-input:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* Estilo del área de texto */
+.custom-textarea {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+/* Estilo de los botones */
+.btn-custom {
+    background-color: #800000;
+    font-family: 'Bebas Neue', sans-serif;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover en el botón */
+.btn-custom:hover {
+    background-color: #800000;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Estilo de los labels */
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Clase para la tarjeta completa */
+.car-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.car-card:hover {
+    transform: scale(1.05); /* Efecto hover de aumentar el tamaño */
+}
+
+/* Clase para la imagen del carro */
+.car-image {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.car-image:hover {
+    transform: scale(1.05); /* Efecto hover de imagen */
+}
+
+/* Clase para el cuerpo de la tarjeta */
+.car-body {
+    padding: 2rem;
+    background-color: #f8f9fa;
+}
+
+/* Título del carro */
+.car-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Descripción del carro */
+.car-description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Estilo para los textos dentro de la card */
+.car-text {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilo para el texto secundario */
+.text-secondary {
+    font-weight: 500;
+    color: #666;
+}
+
+
+/* Contenedor principal de las reseñas */
+.reviews-section {
+    margin-top: 40px;
+    padding: 30px 0;
+    background-color: #f9f9f9;
+}
+
+/* Título de la sección de reseñas */
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Estilo de la tarjeta de cada reseña */
+.review-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transition: transform 0.3s ease;
+}
+
+
+/* Estilo del contenido de la tarjeta de reseña */
+.review-card-body {
+    padding: 20px;
+}
+
+/* Título de la reseña */
+.review-card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+/* Comentario de la reseña */
+.review-card-text {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+
+/* Estilo para las estrellas */
+.review-card-text .fa {
+    color: #ffcc00; /* Color dorado para las estrellas */
+    font-size: 1.2rem; /* Tamaño de las estrellas */
+    margin-right: 5px; /* Espaciado entre estrellas */
+}
+
+/* Asegurarse de que las estrellas vacías se muestren en gris */
+.review-card-text .fa-star-o {
+    color: #d3d3d3; /* Color gris para las estrellas vacías */
+}
+
+.fondo{
+    background-color: #f9f9f9;
+}
