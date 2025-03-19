@@ -30,11 +30,48 @@ public class CarController {
     private ReviewRepository reviewRepository;
     
     @GetMapping("/cars/catalogo")
-    public String showCatalogoPage(Model model) {
-        List<Car> cars = carRepository.findAll();  
+public String showCatalogoPage(@RequestParam(value = "cilindraje", defaultValue = "Todos") String cilindraje,
+                               @RequestParam(value = "tipoCarro", defaultValue = "Todos") String tipoCarro,
+                               @RequestParam(value = "precio", defaultValue = "10000") int precio,
+                               Model model) {
+
+    List<Car> cars;
+
+    try {
+        // Verificar si el cilindraje es "Todos"
+        if (cilindraje.equals("Todos") && tipoCarro.equals("Todos") && precio == 10000) {
+            // Si no hay filtro, mostramos todos los carros
+            cars = carRepository.findAll();
+        } 
+        // Filtrar por cilindraje y tipo de carro si ambos son específicos
+        else if (!cilindraje.equals("Todos") && !tipoCarro.equals("Todos")) {
+            cars = carRepository.findByCylinderAndTypeCarAndPriceLessThanEqual(
+                    Integer.parseInt(cilindraje), tipoCarro, precio);
+        } 
+        // Filtrar solo por cilindraje
+        else if (!cilindraje.equals("Todos")) {
+            cars = carRepository.findByCylinderAndPriceLessThanEqual(Integer.parseInt(cilindraje), precio);
+        } 
+        // Filtrar solo por tipo de carro
+        else if (!tipoCarro.equals("Todos")) {
+            cars = carRepository.findByTypeCarAndPriceLessThanEqual(tipoCarro, precio);
+        } 
+        // Filtrar solo por precio
+        else {
+            cars = carRepository.findByPriceLessThanEqual(precio);
+        }
+
         model.addAttribute("cars", cars);
-        return "cars/catalogo";  
+        return "cars/catalogo";  // Vista que muestra el catálogo filtrado
+
+    } catch (Exception e) {
+        // Imprimir el error en los logs
+        e.printStackTrace();
+        model.addAttribute("error", "Ocurrió un error al obtener los carros. Intenta de nuevo más tarde.");
+        return "error";  // Asegúrate de tener una vista 'error.html'
     }
+}
+
 
     @GetMapping("/car-detail/{id}")
     public String showCarDetail(@PathVariable int id, Model model) {
@@ -57,7 +94,7 @@ public class CarController {
                             @RequestParam("rating") int rating,
                             @RequestParam("comment") String comment,
                             Model model) {
-                                
+
         // Buscar el carro por su ID
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Carro no encontrado"));
