@@ -30,47 +30,42 @@ public class CarController {
     private ReviewRepository reviewRepository;
     
     @GetMapping("/cars/catalogo")
-public String showCatalogoPage(@RequestParam(value = "cilindraje", defaultValue = "Todos") String cilindraje,
-                               @RequestParam(value = "tipoCarro", defaultValue = "Todos") String tipoCarro,
-                               @RequestParam(value = "precio", defaultValue = "10000") int precio,
-                               Model model) {
+    public String showCatalogoPage(@RequestParam(value = "cilindraje", defaultValue = "0") String cilindraje,
+                                @RequestParam(value = "tipoCarro", defaultValue = "todos") String tipoCarro,
+                                @RequestParam(value = "precio", defaultValue = "10000") int precio,
+                                Model model) {
 
-    List<Car> cars;
+        List<Car> cars;
+        
+        System.out.println("Precio recibido: " + precio);
 
-    try {
-        // Verificar si el cilindraje es "Todos"
-        if (cilindraje.equals("Todos") && tipoCarro.equals("Todos") && precio == 10000) {
-            // Si no hay filtro, mostramos todos los carros
-            cars = carRepository.findAll();
-        } 
-        // Filtrar por cilindraje y tipo de carro si ambos son específicos
-        else if (!cilindraje.equals("Todos") && !tipoCarro.equals("Todos")) {
+       
+        if (cilindraje.equals("0") && tipoCarro.equals("todos") && precio == 10000) {
+            System.out.println("Obteniendo todos los carros...");
+            cars = carRepository.findAll();  // Traer todos los carros de la base de datos
+        }  
+        
+        else if (!cilindraje.equals("0") && !tipoCarro.equals("todos")) {
             cars = carRepository.findByCylinderAndTypeCarAndPriceLessThanEqual(
                     Integer.parseInt(cilindraje), tipoCarro, precio);
         } 
-        // Filtrar solo por cilindraje
-        else if (!cilindraje.equals("Todos")) {
+        
+        else if (!cilindraje.equals("0")) {
             cars = carRepository.findByCylinderAndPriceLessThanEqual(Integer.parseInt(cilindraje), precio);
         } 
-        // Filtrar solo por tipo de carro
-        else if (!tipoCarro.equals("Todos")) {
+        
+        else if (!tipoCarro.equals("todos")) {
             cars = carRepository.findByTypeCarAndPriceLessThanEqual(tipoCarro, precio);
         } 
-        // Filtrar solo por precio
+
         else {
             cars = carRepository.findByPriceLessThanEqual(precio);
         }
 
         model.addAttribute("cars", cars);
         return "cars/catalogo";  // Vista que muestra el catálogo filtrado
-
-    } catch (Exception e) {
-        // Imprimir el error en los logs
-        e.printStackTrace();
-        model.addAttribute("error", "Ocurrió un error al obtener los carros. Intenta de nuevo más tarde.");
-        return "error";  // Asegúrate de tener una vista 'error.html'
     }
-}
+
 
 
     @GetMapping("/car-detail/{id}")
