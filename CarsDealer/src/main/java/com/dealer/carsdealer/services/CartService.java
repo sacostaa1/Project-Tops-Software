@@ -3,7 +3,7 @@ package com.dealer.carsdealer.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dealer.carsdealer.models.Cart;
-// import com.dealer.carsdealer.models.Car; // This will be annotated until the Car class is developed
+import com.dealer.carsdealer.models.Car;
 import com.dealer.carsdealer.models.User;
 import com.dealer.carsdealer.repositories.CartRepository;
 import java.util.List;
@@ -39,7 +39,7 @@ public class CartService {
     }
 
     public Cart clearCart(Cart cart) {
-        cart.clearCart(); // This method will not work until the Carro entity is developed
+        cart.clearCart();
         return cartRepository.save(cart);
     }
 

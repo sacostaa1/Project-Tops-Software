@@ -1,4 +1,5 @@
 package com.dealer.carsdealer.models;
+
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,6 @@ public class Cart {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // For now, I will leave this annotated relationship until the Cart entity is developed
-    /*
     @ManyToMany
     @JoinTable(
         name = "cart_cars",
@@ -23,7 +22,6 @@ public class Cart {
         inverseJoinColumns = @JoinColumn(name = "car_id")
     )
     private List<Car> cars = new ArrayList<>();
-    */
 
     // Constructores
     public Cart() {
@@ -50,8 +48,6 @@ public class Cart {
         this.user = user;
     }
 
-    // For now, this methods will also be annotated until the Cart entity is developed
-    /*
     public List<Car> getCars() {
         return cars;
     }
@@ -78,5 +74,4 @@ public class Cart {
             this.cars.clear();
         }
     }
-    */
 }

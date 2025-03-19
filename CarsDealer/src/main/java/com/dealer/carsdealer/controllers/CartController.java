@@ -10,7 +10,8 @@ import com.dealer.carsdealer.models.User;
 import com.dealer.carsdealer.repositories.CartRepository;
 import com.dealer.carsdealer.services.CartService;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
 @RequestMapping("/cart")
@@ -28,19 +29,28 @@ public class CartController {
         this.cartRepository = cartRepository;
     }
 
-    // See the actual user cart
+    public User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            return (User) principal;
+        } else {
+            throw new RuntimeException("Usuario no autenticado");
+        }
+    }
+
     @GetMapping("")
     public String viewCart(Model model) {
         try {
-            User currentUser = getCurrentUser(); // The getCurrentUser method have to be developed after the authentication logic
+            User currentUser = getCurrentUser();
+
             Cart cart = cartService.getCartByUser(currentUser).orElseGet(() -> cartService.createCart(currentUser));
 
             model.addAttribute("cart", cart);
             return "cart/view";
-        } catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("error", "Error al cargar el carrito: " + e.getMessage());
             return "redirect:/";
         }
     }
-
 }
