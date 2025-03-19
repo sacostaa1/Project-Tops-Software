@@ -73,20 +73,19 @@
     <div class="container py-5">
         <h1 class="title text-center mb-4">Catálogo de Carros</h1>
 
-        <div class="row" id="catalogo">
-            <!-- Ejemplo de un carro en el catálogo -->
-            <div class="col-md-4 filtro-item" data-color="rojo" data-cilindraje="1500" data-modelo="x" data-precio="20000" data-tipo="sedan">
+        <div class="row" id="catalogo" th:each="car : ${cars}">
+            <div class="col-md-4">
                 <div class="card custom-card">
-                    <img src="https://www.bridgestone.com.co/content/dam/consumer/bst/la/co/tips/2022/tecnologia-de-llantas/deportivo.jpg" class="card-img-top" alt="Carro 1">
+                    <img th:src="${car.imageUrl}" class="card-img-top" alt="Carro">
                     <div class="card-body">
-                        <h5 class="card-title">Carro Modelo X</h5>
-                        <p class="card-text">Descripción breve del carro. Ideal para viajes largos y confort.</p>
-                        <a href="/car-detail/1" class="btn btn-primary">Ver Detalles</a>
+                        <h5 class="card-title" th:text="${car.make_model}">Carro Modelo</h5>
+                        <p class="card-text" th:text="${car.typeCar}">Tipo de carro</p>
+                        <p class="card-text" th:text="${car.description}">Descripción del carro</p>
+                        <a th:href="@{/car-detail/{id}(id=${car.id})}" class="btn btn-primary">Ver Detalles</a>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
 
     <!-- Footer -->

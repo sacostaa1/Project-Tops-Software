@@ -129,8 +129,10 @@ body {
     font-family: 'Bebas Neue', sans-serif;
 }
 
-span{
-    color: #fff;   
+
+
+.text-custom{
+    color: #7a7a7a!important;
 }
 
 .title{

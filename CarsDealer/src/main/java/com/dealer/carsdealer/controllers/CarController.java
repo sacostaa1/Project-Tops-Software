@@ -32,6 +32,17 @@ public class CarController {
         return "cars/catalogo";  
     }
 
+    @GetMapping("/car-detail/{id}")
+    public String showCarDetail(@PathVariable int id, Model model) {
+        Optional<Car> car = carRepository.findById(id);
+        if (car.isPresent()) {
+            model.addAttribute("car", car.get()); 
+            return "car-detail";
+        } else {
+            return "redirect:/cars/catalogo"; 
+        }
+    }
+
     @GetMapping("/car-add")
     public String addCarForm(Model model) {
         model.addAttribute("car", new Car());
@@ -45,16 +56,7 @@ public class CarController {
         return "car-list";
     }
 
-    @GetMapping("/car-detail/{id}")
-    public String showCarDetail(@PathVariable int id, Model model) {
-        Optional<Car> car = carRepository.findById(id);
-        if (car.isPresent()) {
-            model.addAttribute("car", car.get());
-            return "car-detail";
-        } else {
-            return "redirect:/car-list";
-        }
-    }
+  
 
     @GetMapping("/car-delete/{id}")
     public String deleteCar(@PathVariable int id) {
