@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dealer.carsdealer.models.Car;
 import com.dealer.carsdealer.models.Review;
@@ -37,47 +38,40 @@ public class CarController {
 
     @GetMapping("/car-detail/{id}")
     public String showCarDetail(@PathVariable int id, Model model) {
-        // Buscar el carro por su ID
         Optional<Car> car = carRepository.findById(id);
     
         if (car.isPresent()) {
-            // Obtener las reseñas del carro
-            List<Review> reviews = reviewRepository.findByCarId(id);  // Consulta las reseñas por carId
-            model.addAttribute("car", car.get());  // Agrega el carro al modelo
-            model.addAttribute("reviews", reviews);  // Agrega las reseñas al modelo
-            return "car-detail";  // Devuelve la vista de detalles del carro
+            List<Review> reviews = reviewRepository.findByCarId(id);  
+            model.addAttribute("car", car.get());  
+            model.addAttribute("reviews", reviews);  
+            return "car-detail";  
         } else {
             model.addAttribute("errorMessage", "Carro no encontrado");
-            return "car-detail"; // Mostrar un mensaje de error si no se encuentra el carro
+            return "car-detail"; 
         }
     }
-    
 
     @PostMapping("/car-detail/{id}/add-review")
-public String addReview(@PathVariable int id, @Valid @ModelAttribute("review") Review review, BindingResult result, Model model) {
-    if (result.hasErrors()) {
-        return "car-detail"; // Si hay errores, vuelve a mostrar la vista de detalles del carro
-    }
+    public String addReview(@PathVariable("id") int id,
+                            @RequestParam("title") String title,
+                            @RequestParam("rating") int rating,
+                            @RequestParam("comment") String comment,
+                            Model model) {
+                                
+        // Buscar el carro por su ID
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Carro no encontrado"));
 
-    try {
-        // Buscar el carro y asignárselo a la reseña
-        Optional<Car> car = carRepository.findById(id);
-        
-            review.setCar(car.get()); // Asocia la reseña al carro
-            reviewRepository.save(review); // Guarda la reseña
-        
+        // Crear la nueva reseña
+        Review review = new Review(title, rating, comment, car);
+
+        // Guardar la reseña
+        reviewRepository.save(review);
 
         
         return "redirect:/car-detail/" + id;
-    } catch (Exception e) {
-        model.addAttribute("errorMessage", "Hubo un error al guardar la reseña.");
-        return "car-detail"; // Redirige nuevamente a la página de detalles del carro con el mensaje de error
     }
-}
-
     
-
-
     @GetMapping("/car-add")
     public String addCarForm(Model model) {
         model.addAttribute("car", new Car());
